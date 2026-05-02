@@ -86,6 +86,51 @@
     font-size: 14px;
     margin-top: 2px;
   }
+  .provider-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+  }
+  .provider-list li {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+  .provider-name {
+    font-weight: 600;
+    color: var(--text);
+  }
+  .provider-reason {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 2px;
+  }
+  .basis-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+  }
+  .basis-list li {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .basis-cat {
+    font-weight: 600;
+    color: var(--text);
+    min-width: 220px;
+  }
+  .basis-ground {
+    color: var(--muted);
+    font-size: 14px;
+  }
   a {
     color: var(--accent);
     text-decoration: none;
@@ -97,6 +142,8 @@
     .wrap { padding: 32px 18px 64px; }
     h1 { font-size: 24px; }
     h2 { font-size: 18px; }
+    .basis-list li { flex-direction: column; gap: 4px; }
+    .basis-cat { min-width: unset; }
   }
 </style>
 </head>
@@ -104,12 +151,12 @@
 <div class="wrap">
 
 <h1>Privacybeleid — The Planning Channel</h1>
-<div class="muted">Laatst bijgewerkt: 11 april 2026</div>
+<div class="muted">Laatst bijgewerkt: 2 mei 2026</div>
 
 <p>Dit Privacybeleid legt uit hoe The Planning Channel ("wij", "de app") je gegevens verzamelt, gebruikt en beschermt. Door de app te gebruiken ga je akkoord met de hieronder beschreven praktijken.</p>
 
 <h2>1. Wie we zijn</h2>
-<p>The Planning Channel is een sociale evenementenplanner-app voor Android waarmee je plekken kunt ontdekken, evenementen kunt aanmaken, vrienden en groepen kunt uitnodigen en samen plannen kunt maken.</p>
+<p>The Planning Channel is een sociale evenementenplanner-app waarmee je plekken kunt ontdekken, evenementen kunt aanmaken, vrienden en groepen kunt uitnodigen en samen plannen kunt maken.</p>
 <p>Contact: <a href="mailto:theplanningchannel@gmail.com">theplanningchannel@gmail.com</a></p>
 
 <h2>2. Gegevens die we verzamelen</h2>
@@ -119,22 +166,26 @@
 <ul>
   <li>Telefoonnummer (voor aanmelding via Firebase Authentication)</li>
   <li>Weergavenaam</li>
+  <li>Taalvoorkeur</li>
   <li>Profielfoto / avatar (optioneel, geüpload naar Firebase Storage)</li>
 </ul>
 
 <h3>2.2 Contacten</h3>
-<p>Met jouw toestemming leest de app je contacten zodat je vrienden kunt uitnodigen die de app al gebruiken of ze een uitnodigingslink kunt sturen. Telefoonnummers worden op je apparaat gehasht voordat ze met onze servers worden vergeleken — we slaan je adresboek niet ruw op.</p>
+<p>Met jouw toestemming leest de app je contacten zodat je vrienden kunt vinden die de app al gebruiken. Telefoonnummers worden genormaliseerd naar internationaal formaat en veilig verstuurd naar een beveiligde serverfunctie (Firebase Cloud Function) die de vergelijking uitvoert. Wij slaan je adresboek niet op — de functie retourneert alleen welke nummers overeenkomen met bestaande accounts, zonder de nummers zelf aan andere gebruikers bloot te stellen.</p>
 
 <h3>2.3 Locatie</h3>
 <p>Met jouw toestemming gebruikt de app je locatie om plekken en interessante punten in de buurt op de kaart te tonen en activiteiten om je heen voor te stellen. Locatiegegevens worden in realtime verwerkt en worden niet opgeslagen op onze servers.</p>
 
 <h3>2.4 Evenementen, groepen en content die je maakt</h3>
-<p>We slaan de evenementen, groepen, polls, uitnodigingen, RSVP's, berichten en opgeslagen plekken die je maakt op in Firebase Firestore, zodat ze kunnen synchroniseren tussen apparaten en gedeeld kunnen worden met de vrienden die je uitnodigt.</p>
+<p>We slaan de evenementen, groepen, polls, uitnodigingen, RSVP's en opgeslagen plekken die je maakt op in Firebase Firestore, zodat ze kunnen synchroniseren tussen apparaten en gedeeld kunnen worden met de vrienden die je uitnodigt.</p>
 
 <h3>2.5 Meldingen</h3>
 <p>We gebruiken Firebase Cloud Messaging (FCM) om pushmeldingen te bezorgen. Daarvoor slaan we een push-token op dat aan je account is gekoppeld.</p>
 
-<h3>2.6 Technische gegevens</h3>
+<h3>2.6 Abonnementsgegevens</h3>
+<p>Als je een betaald abonnement afsluit, verwerkt RevenueCat de aankoop en geeft ons alleen een bevestiging van de abonnementsstatus. Betaalgegevens (zoals creditcardnummers) worden nooit door ons ontvangen of opgeslagen — deze blijven bij Google Play en RevenueCat.</p>
+
+<h3>2.7 Technische gegevens</h3>
 <p>We kunnen basisdiagnostiek verzamelen (crashlogs, foutrapporten) om de app stabiel te houden.</p>
 
 <h2>3. Toestemmingen die we vragen</h2>
@@ -149,7 +200,7 @@
   </li>
   <li>
     <div class="perm-name">Contacten</div>
-    <div class="perm-reason">Vrienden vinden die de app al gebruiken en uitnodigingen versturen</div>
+    <div class="perm-reason">Vrienden vinden die de app al gebruiken</div>
   </li>
   <li>
     <div class="perm-name">Locatie</div>
@@ -160,15 +211,31 @@
     <div class="perm-reason">Een profielfoto of groepsavatar uploaden</div>
   </li>
 </ul>
-<p>Je kunt elke toestemming op elk moment intrekken in de Android-systeeminstellingen.</p>
+<p>Je kunt elke toestemming op elk moment intrekken in de systeeminstellingen van je apparaat.</p>
 
 <h2>4. Diensten van derden</h2>
-<p>De app maakt gebruik van deze aanbieders, elk met hun eigen privacybeleid:</p>
-<ul>
-  <li>Google Firebase — authenticatie, data-hosting, meldingen</li>
-  <li>Mapbox — kaartweergave</li>
-  <li>Geoapify — punten van interesse en zoekgegevens</li>
-  <li>OpenStreetMap Nominatim — reverse geocoding</li>
+<p>De app maakt gebruik van de volgende aanbieders, elk met hun eigen privacybeleid:</p>
+<ul class="provider-list">
+  <li>
+    <div class="provider-name"><a href="https://firebase.google.com/support/privacy">Google Firebase</a></div>
+    <div class="provider-reason">Authenticatie, data-opslag (Firestore), bestandsopslag, Cloud Functions, pushmeldingen</div>
+  </li>
+  <li>
+    <div class="provider-name"><a href="https://www.revenuecat.com/privacy">RevenueCat</a></div>
+    <div class="provider-reason">Verwerking en validatie van in-app abonnementen</div>
+  </li>
+  <li>
+    <div class="provider-name"><a href="https://www.mapbox.com/legal/privacy">Mapbox</a></div>
+    <div class="provider-reason">Kaartweergave</div>
+  </li>
+  <li>
+    <div class="provider-name"><a href="https://www.geoapify.com/privacy-policy">Geoapify</a></div>
+    <div class="provider-reason">Punten van interesse en zoekgegevens</div>
+  </li>
+  <li>
+    <div class="provider-name"><a href="https://osmfoundation.org/wiki/Privacy_Policy">OpenStreetMap Nominatim</a></div>
+    <div class="provider-reason">Reverse geocoding</div>
+  </li>
 </ul>
 <p>We verkopen je gegevens niet aan adverteerders of derden.</p>
 
@@ -176,6 +243,7 @@
 <ul>
   <li>Om de kernfuncties van de app te leveren (evenementen, groepen, uitnodigingen, kaarten)</li>
   <li>Om meldingen te sturen waarvoor je je hebt aangemeld</li>
+  <li>Om abonnementsstatus te valideren</li>
   <li>Om de dienst veilig te houden en bugs op te lossen</li>
   <li>Om te voldoen aan wettelijke verplichtingen</li>
 </ul>
@@ -183,19 +251,52 @@
 <h2>6. Delen van gegevens</h2>
 <p>Informatie die je maakt wordt alleen gedeeld met de mensen die jij kiest — vrienden die je toevoegt, leden van groepen waar je lid van bent, of ontvangers van evenementen die je uitnodigt. We delen je persoonlijke gegevens met niemand anders behalve de dienstverleners in sectie 4, die ze namens ons verwerken.</p>
 
-<h2>7. Bewaring en verwijdering</h2>
-<p>Je gegevens worden bewaard zolang je account actief is. Je kunt individuele evenementen, groepen, vrienden of opgeslagen plekken op elk moment in de app verwijderen, of volledige accountverwijdering aanvragen in het instellingenmenu.</p>
+<h2>7. Internationale gegevensoverdracht</h2>
+<p>De app maakt gebruik van Google Firebase, waarvan de servers zich voornamelijk in de Verenigde Staten bevinden. Als je je in de Europese Economische Ruimte (EER) bevindt, worden je gegevens dus overgedragen naar een land buiten de EER. Google verwerkt deze gegevens op basis van de Standaard Contractbepalingen (Standard Contractual Clauses) die door de Europese Commissie zijn goedgekeurd, wat een passend beschermingsniveau biedt.</p>
 
-<h2>8. Beveiliging</h2>
-<p>We gebruiken industriestandaardmaatregelen waaronder versleutelde verbindingen (HTTPS), Firebase Authentication en Firestore-beveiligingsregels. Geen systeem is perfect veilig, maar we werken eraan om je gegevens te beschermen.</p>
+<h2>8. Bewaring en verwijdering</h2>
+<p>Je gegevens worden bewaard zolang je account actief is. Je kunt individuele evenementen, groepen, vrienden of opgeslagen plekken op elk moment in de app verwijderen, of volledige accountverwijdering aanvragen in het instellingenmenu. Na verwijdering worden je gegevens binnen 30 dagen permanent uit onze systemen verwijderd.</p>
 
-<h2>9. Jouw rechten (AVG / EU-gebruikers)</h2>
-<p>Als je in de EU bent, heb je het recht om je persoonsgegevens in te zien, te corrigeren, te exporteren of te verwijderen, en om toestemming op elk moment in te trekken. Neem contact op via het bovenstaande e-mailadres om deze rechten uit te oefenen.</p>
+<h2>9. Beveiliging</h2>
+<p>We gebruiken industriestandaardmaatregelen waaronder versleutelde verbindingen (HTTPS/TLS), Firebase Authentication en Firestore-beveiligingsregels die client-directe toegang tot andermans gegevens blokkeren. Gevoelige lookups (zoals het vinden van vrienden via telefoonnummer) worden uitsluitend server-side uitgevoerd via beveiligde Cloud Functions. Geen enkel systeem is volkomen veilig, maar we spannen ons in om je gegevens te beschermen.</p>
 
-<h2>10. Wijzigingen in dit beleid</h2>
-<p>We kunnen dit beleid van tijd tot tijd bijwerken. Significante wijzigingen worden in de app aangekondigd.</p>
+<h2>10. Jouw rechten (AVG / GDPR)</h2>
 
-<h2>11. Contact</h2>
+<h3>Rechtsgrondslag voor verwerking</h3>
+<ul class="basis-list">
+  <li>
+    <div class="basis-cat">Accountgegevens, evenementen, groepen</div>
+    <div class="basis-ground">Uitvoering van de overeenkomst (art. 6 lid 1 sub b AVG)</div>
+  </li>
+  <li>
+    <div class="basis-cat">Contacten, locatie, meldingen</div>
+    <div class="basis-ground">Toestemming (art. 6 lid 1 sub a AVG)</div>
+  </li>
+  <li>
+    <div class="basis-cat">Crashlogs, diagnostiek</div>
+    <div class="basis-ground">Gerechtvaardigd belang (art. 6 lid 1 sub f AVG)</div>
+  </li>
+</ul>
+
+<h3>Jouw rechten</h3>
+<p>Als je je in de EU/EER bevindt, heb je de volgende rechten:</p>
+<ul>
+  <li><strong>Inzage</strong> — opvragen welke gegevens we van je hebben</li>
+  <li><strong>Rectificatie</strong> — onjuiste gegevens laten corrigeren</li>
+  <li><strong>Verwijdering</strong> — je account en bijbehorende gegevens laten wissen</li>
+  <li><strong>Bezwaar</strong> — bezwaar maken tegen verwerking op basis van gerechtvaardigd belang</li>
+  <li><strong>Gegevensoverdraagbaarheid</strong> — je gegevens in een machineleesbaar formaat opvragen</li>
+  <li><strong>Intrekking van toestemming</strong> — op elk moment, zonder dat dit de rechtmatigheid van eerdere verwerking aantast</li>
+</ul>
+<p>Neem voor het uitoefenen van deze rechten contact op via <a href="mailto:theplanningchannel@gmail.com">theplanningchannel@gmail.com</a>. We reageren binnen 30 dagen. Je hebt ook het recht om een klacht in te dienen bij de <a href="https://www.autoriteitpersoonsgegevens.nl">Autoriteit Persoonsgegevens</a>.</p>
+
+<h2>11. Minimumleeftijd</h2>
+<p>De app is bedoeld voor gebruikers van 16 jaar en ouder. We verzamelen niet bewust gegevens van kinderen jonger dan 16 jaar. Als je vermoedt dat een minderjarige een account heeft aangemaakt, neem dan contact met ons op zodat we dit kunnen verwijderen.</p>
+
+<h2>12. Wijzigingen in dit beleid</h2>
+<p>We kunnen dit beleid van tijd tot tijd bijwerken. De datum bovenaan dit document geeft aan wanneer de meest recente versie is gepubliceerd. Significante wijzigingen worden in de app aangekondigd.</p>
+
+<h2>13. Contact</h2>
 <p>Vragen over dit beleid? Mail naar <a href="mailto:theplanningchannel@gmail.com">theplanningchannel@gmail.com</a>.</p>
 
 </div>
